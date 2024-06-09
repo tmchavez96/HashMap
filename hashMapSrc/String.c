@@ -70,6 +70,16 @@ struct String* createString(char *body, int size){
     return newString;
 }
 
+// body is the only allocated memory that needs to be free
+void freeString(struct String* str){
+    if(str != NULL){
+        if(str->body != NULL){
+            free(str->body);
+        }
+        free(str);
+    }
+}
+
 // index of char
 int indexOfChar(struct String *string, char charToFind) {
     int rv = -1;
