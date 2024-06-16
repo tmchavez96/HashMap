@@ -3,6 +3,8 @@
 #include "String.h"
 
 
+const char kStringTerminator = '\0';
+
 void printString(struct String *string, char *callsite){
     printf("Printing String from %s\n", callsite);
     printf("body = '%s'\n", string->body);
@@ -41,7 +43,7 @@ struct String* createStringFromFgets(char *body, int size){
         newString->body[i] = body[i];
         if(body[i] == '\0' || body[i] == 10){
             length = i;
-            newString->body[i] = '\0';
+            newString->body[i] = kStringTerminator;
         }
     }
     
@@ -99,6 +101,22 @@ int stringsAreEqual(struct String *a, struct String *b){
     }
     for(int i = 0; i <= a->length; i++){
         if(a->body[i] != b->body[i]){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+// assumes a properly terminated string is passed
+int stringIsEqualToCharArray(struct String *s, char *c){
+    // consider edge case of zero length
+    if(s->length == 0){
+        // if the first pointer is the string terminator then its correct
+        return c[0] == kStringTerminator;
+    }
+
+    for(int i = 0; i <= s->length; i++){
+        if(s->body[i] != c[i]){
             return 0;
         }
     }

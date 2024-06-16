@@ -29,6 +29,8 @@ int indexOfChar(struct String *string, char charToFind);
 
 int stringsAreEqual(struct String *a, struct String *b);
 
+int stringIsEqualToCharArray(struct String *s, char *c);
+
 struct String* removeCharFromString(struct String *string, char charToRemove);
 
 void printString(struct String *string, char *callsite);
